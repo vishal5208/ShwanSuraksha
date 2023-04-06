@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "dotenv": "^16.0.3",
+    "fs": "^0.0.1-security",
+    "hardhat": "^2.13.0",
+    "solidity-bytes-utils": "^0.8.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2"
+  }
+}

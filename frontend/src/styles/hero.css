@@ -1,0 +1,142 @@
+.hero__wrapper{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 50px;
+}
+
+.hero__content .section__title{
+    font-size: 3rem;
+    padding-right: 60px;
+    line-height: 60px;
+    margin-bottom: 20px;
+}
+
+.highlights{
+    color: var(--primary-color);
+}
+
+.hero__content p{
+    font-size: 1.1rem;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+    margin-top: 10px;
+    line-height: 30px;
+}
+
+.hero__btns{
+    display: flex;
+    align-items: center;
+    column-gap: 3rem;
+}
+
+.box-01{
+    width: 600px;
+    height: 520px;
+    border-radius: 100%;
+    border: 20px solid rgba(141, 141, 235, 1);
+}
+
+.box-02{
+    width: 560px;
+    height: 480px;
+    border-radius: 100%;
+    border: 20px solid #b5a9f3;
+}
+
+.box-03{
+    width: 521px;
+    height: 451px;
+    border-radius: 100%;
+    border: 20px solid #d3cef2;
+}
+
+.hero__img-wrapper{
+    position: relative;
+    z-index: 1;
+}
+
+.box__img{
+    position: absolute;
+    top: -7%;
+    left: -13%;
+    z-index: 10;
+}
+
+.box__img img{
+    width: 90%;
+    padding-top: 150px;
+    padding-left: 152px;
+}
+
+.lifetime_cover{
+    /* width: 100%; */
+    position: absolute;
+    top: 70%;
+    left: -11%;
+    z-index: 10;
+    box-shadow: -3px 3px 8px -1px #d3cef2;
+    text-align: center;
+    background: #fff;
+    border-radius: 5px;
+    padding: 15px 10px;
+}
+
+.lifetime_cover span{
+    width: 30px;
+    height: 25px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d3cef2;
+    color: #d7377a;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.lifetime_cover h5, h6{
+    font-size: .8rem;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+.lifetime_cover h5{
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.lifetime_cover h6{
+    margin-bottom: 10px;
+}
+
+.accidents{
+    position: absolute;
+    top: 3%;
+    right: -1%;
+    z-index: 10;
+    box-shadow: -3px 3px 8px -1px #d3cef2;
+    text-align: center;
+    background: #fff;
+    border-radius: 5px;
+    padding: 1.2rem;
+}
+
+.accidents span{
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 1.1rem;
+    border-radius: 50%;
+}
+
+.accidents h5{
+    color: var(--heading-color);
+    /* margin-top: 1rem; */
+    font-size: 0.9rem;
+}
