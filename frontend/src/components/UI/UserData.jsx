@@ -1,52 +1,8 @@
-// import React from "react";
-// import "../../styles/userdata.css";
-
-// export const UserData = ({ policy }) => {
-//   return (
-//     <div className="policy-container">
-//       <div className="policy-details">
-//         <p>
-//           <strong>Owner:</strong> {policy.owner}
-//         </p>
-//         <p>
-//           <strong>Premium:</strong> {policy.premium}
-//         </p>
-//         <p>
-//           <strong>Payout:</strong> {policy.payout}
-//         </p>
-//         <p>
-//           <strong>Start Date:</strong> {policy.startDate}
-//         </p>
-//         <p>
-//           <strong>End Date:</strong> {policy.endDate}
-//         </p>
-//         <p>
-//           <strong>Claimed:</strong> {policy.claimed ? "Yes" : "No"}
-//         </p>
-//         <p>
-//           <strong>Breed:</strong> {policy.breed}
-//         </p>
-//         <p>
-//           <strong>Age in Months:</strong> {policy.ageInMonths}
-//         </p>
-//         <p>
-//           <strong>Health Condition:</strong> {policy.healthCondition}
-//         </p>
-//         <p>
-//           <strong>Region:</strong> {policy.region}
-//         </p>
-//         <p>
-//           <strong>Policy Type:</strong> {policy.policyType}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default UserData;
 
 import React, { useState } from "react";
 import { getPolicy } from "../BackendConnectors/shwanSurkshaConnector";
+import { Link } from "react-router-dom";
+import "../../styles/userdata.css";
 
 export function PolicyButton() {
   const [policyData, setPolicyData] = useState(null);
@@ -70,7 +26,7 @@ export function PolicyButton() {
   };
 
   return (
-    <div>
+    <div  className="userdata-container">
       <input
         type="text"
         value={policyId}
@@ -94,7 +50,7 @@ export function PolicyButton() {
           <p>Policy Type: {policyData.policyType.toString()}</p>
         </div>
       )}
-      <button>claim</button>
+      <Link to = "/claim"><button className='register__btn'>Claim</button></Link>
     </div>
   );
 }
