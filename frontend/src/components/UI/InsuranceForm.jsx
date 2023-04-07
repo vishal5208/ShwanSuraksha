@@ -89,7 +89,7 @@ export const InsuranceForm = () => {
       <div className="inputs">
         <div>
           <label htmlFor="option1" className="input">
-            Breed:
+            Breed :
           </label>
           <select
             id="option1"
@@ -107,20 +107,20 @@ export const InsuranceForm = () => {
 
         <div className="inputs" id="inputs__label">
           <label htmlFor="option2" className="input">
-            Age In Months:
+            Age :
           </label>
           <input
             className="age-input-box"
             type="text"
             value={option2}
             onChange={handleOption2Change}
-            placeholder="Your dog's age"
+            placeholder="Your dog's age in months"
           />
         </div>
 
         <div className="inputs">
           <label htmlFor="option3" className="input">
-            Region:
+            Region :
           </label>
           <select
             id="option3"
@@ -139,7 +139,7 @@ export const InsuranceForm = () => {
 
         <div className="inputs">
           <label htmlFor="option4" className="input">
-            Health Condition:
+            Health Condition :
           </label>
           <select
             id="option4"
@@ -157,7 +157,7 @@ export const InsuranceForm = () => {
 
         <div className="inputs">
           <label htmlFor="option5" className="input">
-            Policy Type:
+            Policy Type :
           </label>
           <select
             id="option5"

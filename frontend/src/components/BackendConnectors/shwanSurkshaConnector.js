@@ -1,3 +1,5 @@
+import "./style.css";
+
 const { ethers } = require("ethers");
 const shwanSurksha = require("../../constants/ShwanSurkshaJson.json");
 const { requestAccount, getEthAddress } = require("./commonConnectors");
@@ -19,13 +21,6 @@ export const addPolicy = async (obj) => {
       );
 
       console.log("i'm in swansurksha");
-      // let data = await contract.calculatePremium(
-      //   "Labrador Retriever",
-      //   "20",
-      //   "SEVERE",
-      //   "North",
-      //   "Premium"
-      // );
 
       const { _breed, _ageInMonths, _healthCondition, _region, _policyType } =
         obj;
@@ -49,22 +44,20 @@ export const addPolicy = async (obj) => {
         "168051955878787"
       );
 
-      //
-
-      // Get the filter for the PolicyAdded event
       const filter = contract.filters.PolicyAdded();
-
-      // Listen for the event and retrieve the emitted policyId value
       contract.on(
         filter,
-        (policyId, owner, premium, payout, startDate, endDate) => {
-          alert(`Policy Added Succesfully with policyId ${policyId}`);
+        async (policyId, owner, premium, payout, startDate, endDate) => {
           console.log(`New policy added with ID ${policyId}`);
+          const alertBox = document.createElement("div");
+          alertBox.classList.add("alert-box");
+          alertBox.textContent = `Policy Added Successfully with policy ID ${policyId}`;
+          document.body.appendChild(alertBox);
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+          alertBox.remove();
           return policyId;
-          // Store the policyId value in a variable or update your UI with the new policyId
         }
       );
-      //
     } else {
       return {
         success: false,
