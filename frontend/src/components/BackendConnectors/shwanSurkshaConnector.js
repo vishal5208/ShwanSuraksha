@@ -107,10 +107,9 @@ export const getActivePoliciyOf = async (userAddr) => {
 export const getPolicy = async (policyId) => {
   try {
     if (typeof window.ethereum !== "undefined") {
-      await requestAccount();
+      await window.ethereum.request({ method: "eth_requestAccounts" });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      console.log({ signer });
       const contract = new ethers.Contract(
         shwanSurkshaAddress,
         shwanSurksha.abi,
@@ -119,7 +118,10 @@ export const getPolicy = async (policyId) => {
 
       const policyData = await contract.getPolicy(policyId);
 
-      console.log(policyData);
+      return {
+        success: true,
+        data: policyData,
+      };
     } else {
       return {
         success: false,
@@ -130,6 +132,6 @@ export const getPolicy = async (policyId) => {
     return {
       success: false,
       msg: error.message,
-    };
-  }
+    };
+  }
 };

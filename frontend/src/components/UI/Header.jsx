@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "../../styles/header.css";
-import { WalletComponent } from "../Reusable/walletComponent";
+import { WalletComponent } from "../UI/walletComponent";
+import { Link } from "react-router-dom";
 
 const nav__links = [
   {
@@ -12,12 +13,8 @@ const nav__links = [
     display: "Benefits",
   },
   {
-    path: "#",
-    display: "Claim",
-  },
-  {
-    path: "#",
-    display: "Insure",
+    path: "/PolicyButton",
+    display: "UserData",
   },
 ];
 
@@ -41,17 +38,17 @@ const Header = () => {
     return () => window.removeEventListener("scroll", headerFunc);
   }, []);
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  // const handleClick = (e) => {
+  //   e.preventDefault();
 
-    const targetAttr = e.target.getAttribute("href");
-    const location = document.querySelector(targetAttr).offsetTop;
+  //   const targetAttr = e.target.getAttribute("href");
+  //   const location = document.querySelector(targetAttr).offsetTop;
 
-    window.scrollTo({
-      left: 0,
-      top: location - 80,
-    });
-  };
+  //   window.scrollTo({
+  //     left: 0,
+  //     top: location - 80,
+  //   });
+  // };
 
   return (
     <header className="header" ref={headerRef}>
@@ -64,9 +61,9 @@ const Header = () => {
             <ul className="menu">
               {nav__links.map((item) => (
                 <li className="nav__item">
-                  <a onClick={handleClick} href={item.path}>
+                  <Link to={item.path}>
                     {item.display}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
