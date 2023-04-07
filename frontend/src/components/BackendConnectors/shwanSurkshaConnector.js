@@ -135,3 +135,34 @@ export const getPolicy = async (policyId) => {
     };
   }
 };
+
+export const claimPolicy = async (policyId) => {
+  try {
+    if (typeof window.ethereum !== "undefined") {
+      await requestAccount();
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      console.log({ signer });
+      const contract = new ethers.Contract(
+        shwanSurkshaAddress,
+        shwanSurksha.abi,
+        signer
+      );
+
+      const transaction = await contract.claimPolicy(policyId);
+      await transaction.wait();
+
+      console.log("Policy claimed successfully");
+    } else {
+      return {
+        success: false,
+        msg: "Please connect your wallet!",
+      };
+    }
+  } catch (error) {
+    return {
+      success: false,
+      msg: error.message,
+    };
+  }
+};

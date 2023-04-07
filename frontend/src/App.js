@@ -7,7 +7,7 @@ import Footer from "./components/UI/Footer";
 import { Home } from "./components/Home";
 import { InsuranceForm } from "../src/components/UI/InsuranceForm";
 import { PolicyButton } from "../src/components/UI/UserData";
-import { PolygonID } from "./components/UI/PolygonID";
+import PolygonID from "./components/UI/PolygonID";
 
 function App() {
 
