@@ -79,7 +79,15 @@ function ClaimButton({ policyId }) {
             </button>
           </section>
 
-          <section className="blockpass-package-flex-center repu-card qrcode-container">
+          <section
+            className="blockpass-package-flex-center repu-card qrcode-container"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <h3>Verify Your claim and get your payout</h3>
             <QRCode
               level="Q"

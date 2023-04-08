@@ -55,15 +55,13 @@ const Header = () => {
       <div className="container">
         <div className="nav__wrapper">
           <div className="logo">
-            <h2>ShwanRaksha</h2>
+            <h2>ShwanSuraksha</h2>
           </div>
           <div className="navigation">
             <ul className="menu">
               {nav__links.map((item) => (
                 <li className="nav__item">
-                  <Link to={item.path}>
-                    {item.display}
-                  </Link>
+                  <Link to={item.path}>{item.display}</Link>
                 </li>
               ))}
             </ul>

@@ -85,7 +85,6 @@
 //   );
 // }
 
-
 import { useState } from "react";
 import { useConnectWallet } from "../Hooks/useConnectWallet";
 import "../../styles/walletcomponent.css";
@@ -113,7 +112,7 @@ export function WalletComponent() {
     <div className="wallet-component-wrapper">
       {connectStatus === "disconnected" && (
         <div className="connect-wallet-wrapper">
-          <span>Connect Wallet</span>
+          <span>Connect&nbsp;Wallet</span>
           {isLoading && <span>Loading...</span>}
           {errorMsg && <span>Error: {errorMsg}</span>}
           {!isLoading && !errorMsg && (

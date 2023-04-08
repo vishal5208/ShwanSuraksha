@@ -63,7 +63,7 @@ export function PolicyButton() {
   }
 
   return (
-    <div className="userdata-container">
+    <div className="userdata-container" style={{ height: "35rem" }}>
       <input
         type="text"
         value={policyId}
@@ -73,7 +73,7 @@ export function PolicyButton() {
       <button onClick={handleClick}>Get Policy</button>
       {error && <p>Error: {error}</p>}
       {policyData && (
-        <div>
+        <div style={{ border: "2px solid black", padding: "1rem" }}>
           <p>Owner: {policyData.owner.toString()}</p>
           <p>Premium: ${ethers.utils.formatUnits(policyData.premium, 6)}</p>
           <p>Payout: ${ethers.utils.formatUnits(policyData.payout, 6)}</p>

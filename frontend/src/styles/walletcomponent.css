@@ -7,6 +7,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 0.3rem;
 }
 
 .connect-wallet-wrapper {
@@ -15,6 +16,7 @@
   display: flex;
   align-items: center;
   height: 2rem;
+  width: 11rem;
 }
 
 .connect-wallet-wrapper button {
@@ -38,6 +40,8 @@
   color: white;
   display: flex;
   align-items: center;
+  gap: 1rem;
+  width: 11rem;
   /* flex-direction: column; */
 }
 

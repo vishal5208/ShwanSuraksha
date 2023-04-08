@@ -85,13 +85,24 @@ export const InsuranceForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-box">
+    <form
+      onSubmit={handleSubmit}
+      className="form-box"
+      style={{ border: "2px solid black", height: "35rem" }}
+    >
       <div className="inputs">
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <label htmlFor="option1" className="input">
             Breed :
           </label>
+
           <select
+            style={{ width: "15rem" }}
             id="option1"
             name="option1"
             value={option1}
@@ -105,11 +116,20 @@ export const InsuranceForm = () => {
           </select>
         </div>
 
-        <div className="inputs" id="inputs__label">
+        <div
+          className="inputs"
+          id="inputs__label"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <label htmlFor="option2" className="input">
             Age :
           </label>
+
           <input
+            style={{ width: "15rem", height: "2rem" }}
             className="age-input-box"
             type="text"
             value={option2}
@@ -118,11 +138,18 @@ export const InsuranceForm = () => {
           />
         </div>
 
-        <div className="inputs">
+        <div
+          className="inputs"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <label htmlFor="option3" className="input">
             Region :
           </label>
           <select
+            style={{ width: "15rem" }}
             id="option3"
             name="option3"
             value={option3}
@@ -137,11 +164,18 @@ export const InsuranceForm = () => {
           </select>
         </div>
 
-        <div className="inputs">
+        <div
+          className="inputs"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <label htmlFor="option4" className="input">
             Health Condition :
           </label>
           <select
+            style={{ width: "15rem" }}
             id="option4"
             name="option4"
             value={option4}
@@ -155,11 +189,18 @@ export const InsuranceForm = () => {
           </select>
         </div>
 
-        <div className="inputs">
+        <div
+          className="inputs"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <label htmlFor="option5" className="input">
             Policy Type :
           </label>
           <select
+            style={{ width: "15rem" }}
             id="option5"
             name="option5"
             value={option5}
@@ -172,18 +213,52 @@ export const InsuranceForm = () => {
           </select>
         </div>
 
-        <button type="submit">submit</button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "1rem",
+          }}
+        >
+          <button type="submit" style={{ width: "8rem" }}>
+            submit
+          </button>
+        </div>
 
         {submitButton === "Submitted" && (
-          <div className="premium">
-            Your Pet's Premium is ${premium.data} dollars.
+          <div
+            className="premium"
+            style={{
+              border: "1px solid black",
+              textAlign: "center",
+              margin: "1rem",
+              padding: "-1rem",
+            }}
+          >
+            Your Pet's Premium is{" "}
+            <span style={{ color: "green" }}>${premium.data}</span> dollars.
           </div>
         )}
 
         {submitButton === "Submitted" && (
-          <button onClick={() => handleAddPolicy(formobject)}>
-            Add Policy
-          </button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+            }}
+          >
+            <button
+              onClick={() => handleAddPolicy(formobject)}
+              style={{ width: "8rem" }}
+            >
+              Add Policy
+            </button>
+          </div>
         )}
       </div>
     </form>
