@@ -51,7 +51,21 @@ export function PolicyButton() {
     return (
       <div>
         {isSuccess ? (
-          <div>Policy claimed successfully!</div>
+          <div style={{ textAlign: "center" }}>
+            <div
+              style={{
+                marginTop: "1rem",
+                border: "2px solid black",
+                padding: "0.5rem",
+              }}
+            >
+              Policy submited for claim
+            </div>
+
+            <Link to="/claim">
+              <button className="register__btn">Claim</button>
+            </Link>
+          </div>
         ) : (
           <button onClick={handleClick} disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Do you want to claim policy?"}
@@ -73,24 +87,23 @@ export function PolicyButton() {
       <button onClick={handleClick}>Get Policy</button>
       {error && <p>Error: {error}</p>}
       {policyData && (
-        <div style={{ border: "2px solid black", padding: "1rem" }}>
-          <p>Owner: {policyData.owner.toString()}</p>
-          <p>Premium: ${ethers.utils.formatUnits(policyData.premium, 6)}</p>
-          <p>Payout: ${ethers.utils.formatUnits(policyData.payout, 6)}</p>
-          <p>Start Date: {policyData.startDate}</p>
-          <p>End Date: {policyData.endDate}</p>
-          <p>Claimed: {policyData.claimed.toString()}</p>
-          <p>Breed: {policyData.breed.toString()}</p>
-          <p>Age In Months: {policyData.ageInMonths.toString()}</p>
-          <p>Health Condition: {policyData.healthCondition.toString()}</p>
-          <p>Region: {policyData.region.toString()}</p>
-          <p>Policy Type: {policyData.policyType.toString()}</p>
-        </div>
+        <>
+          <div style={{ border: "2px solid black", padding: "1rem" }}>
+            <p>Owner: {policyData.owner.toString()}</p>
+            <p>Premium: ${ethers.utils.formatUnits(policyData.premium, 6)}</p>
+            <p>Payout: ${ethers.utils.formatUnits(policyData.payout, 6)}</p>
+            <p>Start Date: {policyData.startDate}</p>
+            <p>End Date: {policyData.endDate}</p>
+            <p>Claimed: {policyData.claimed.toString()}</p>
+            <p>Breed: {policyData.breed.toString()}</p>
+            <p>Age In Months: {policyData.ageInMonths.toString()}</p>
+            <p>Health Condition: {policyData.healthCondition.toString()}</p>
+            <p>Region: {policyData.region.toString()}</p>
+            <p>Policy Type: {policyData.policyType.toString()}</p>
+          </div>
+          <PolicyClaimButton policyId={policyId} />
+        </>
       )}
-      <PolicyClaimButton policyId={policyId} />
-      <Link to="/claim">
-        <button className="register__btn">Claim</button>
-      </Link>
     </div>
   );
 }

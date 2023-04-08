@@ -66,7 +66,12 @@ function ClaimButton({ policyId }) {
     <div>
       <main>
         <section className="blockpass-package-left-side">
-          <section className="repu-card blockpass-package-flex-center button-group bottom-buttons">
+          <section
+            className="repu-card blockpass-package-flex-center button-group bottom-buttons"
+            style={{
+              background: "#C1B4F3",
+            }}
+          >
             <button
               onClick={() => {
                 openInNewTab(
@@ -86,6 +91,7 @@ function ClaimButton({ policyId }) {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
+              background: "#C1B4F3",
             }}
           >
             <h3>Verify Your claim and get your payout</h3>
@@ -96,14 +102,19 @@ function ClaimButton({ policyId }) {
             />
           </section>
 
-          <section className="repu-card blockpass-package-flex-center button-group bottom-buttons">
+          {/* <section
+            className="repu-card blockpass-package-flex-center button-group bottom-buttons"
+            style={{
+              background: "#C1B4F3",
+            }}
+          >
             <h3>Only after verification click here</h3>
             <div>
               <button onClick={handleClick}>Claim Policy</button>
               {error && <p>Error: {error}</p>}
               {success && <p>Policy claimed successfully!</p>}
             </div>
-          </section>
+          </section> */}
         </section>
       </main>
     </div>
