@@ -25,13 +25,11 @@ export const addPolicy = async (obj) => {
       const { _breed, _ageInMonths, _healthCondition, _region, _policyType } =
         obj;
 
-      const startdate = new Date();
-      const endDate = new Date(
-        startdate.getFullYear() + 1,
-        startdate.getMonth(),
-        startdate.getDate()
-      );
-      const startTimestamp = Math.floor(startdate.getTime() / 1000);
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() + 1); // Set start date to 1 day after current date
+      const endDate = new Date(startDate);
+      endDate.setFullYear(startDate.getFullYear() + 1); // Set end date to 1 year after start date
+      const startTimestamp = Math.floor(startDate.getTime() / 1000);
       const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
       const receipt = await contract.addPolicy(
@@ -40,8 +38,8 @@ export const addPolicy = async (obj) => {
         _healthCondition,
         _region,
         _policyType,
-        "1680519558234",
-        "168051955878787"
+        startTimestamp.toString(),
+        endTimestamp.toString()
       );
 
       const filter = contract.filters.PolicyAdded();
@@ -137,6 +135,7 @@ export const getPolicy = async (policyId) => {
 };
 
 export const claimPolicy = async (policyId) => {
+  console.log(policyId, "policyId");
   try {
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
@@ -148,21 +147,15 @@ export const claimPolicy = async (policyId) => {
         shwanSurksha.abi,
         signer
       );
-
       const transaction = await contract.claimPolicy(policyId);
-      await transaction.wait();
-
-      console.log("Policy claimed successfully");
+      console.log(transaction);
+      await transaction.wait(); // Wait for transaction to be mined
+      return true;
     } else {
-      return {
-        success: false,
-        msg: "Please connect your wallet!",
-      };
+      return false;
     }
   } catch (error) {
-    return {
-      success: false,
-      msg: error.message,
-    };
+    console.error(error);
+    return false;
   }
 };
