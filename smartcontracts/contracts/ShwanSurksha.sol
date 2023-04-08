@@ -19,7 +19,7 @@ contract ShwanSurksha {
         string healthCondition;
         string region;
         string policyType;
-        string ipfsHash;
+        // string ipfsHash;
     }
 
     // Mapping to store policies by their unique ID
@@ -97,7 +97,7 @@ contract ShwanSurksha {
         string memory _healthCondition,
         string memory _region,
         string memory _policyType,
-        string memory _ipfsHash,
+        // string memory _ipfsHash,
         uint256 startDate,
         uint256 endDate
     ) external {
@@ -109,8 +109,8 @@ contract ShwanSurksha {
                 _ageInMonths,
                 _healthCondition,
                 _region,
-                _policyType,
-                _ipfsHash
+                _policyType
+                //  _ipfsHash
             )
         );
 
@@ -146,8 +146,8 @@ contract ShwanSurksha {
             _ageInMonths,
             _healthCondition,
             _region,
-            _policyType,
-            _ipfsHash
+            _policyType
+            //_ipfsHash
         );
 
         policyHolderToIDs[msg.sender].push(policyId);
@@ -281,9 +281,9 @@ contract ShwanSurksha {
             uint ageInMonths,
             string memory healthCondition,
             string memory region,
-            string memory policyType,
-            string memory ipfsHash
+            string memory policyType
         )
+    // string memory ipfsHash
     {
         Policy storage _policy = policy[policyId];
         require(_policy.owner != address(0), "Policy does not exist");
@@ -298,8 +298,8 @@ contract ShwanSurksha {
             _policy.ageInMonths,
             _policy.healthCondition,
             _policy.region,
-            _policy.policyType,
-            _policy.ipfsHash
+            _policy.policyType
+            // _policy.ipfsHash
         );
     }
 

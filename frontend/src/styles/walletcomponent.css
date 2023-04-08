@@ -1,47 +1,46 @@
 .wallet-component-wrapper {
-    /* position: relative;
+  /* position: relative;
     z-index: 1; */
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .connect-wallet-wrapper {
-    background-color: var(--primary-color);
-    color: white;
-    display: flex;
-    align-items: center;
-    
-  }
-  
-  .connect-wallet-wrapper button {
-    margin-right: 10px;
-    font-size: 14px;
-  }
-  
-  .connect-wallet-wrapper span {
-    margin-right: 10px;
-  }
-  
-  .connecting-wallet-wrapper {
-    background-color: purple;
-    color: white;
-    display: flex;
-    align-items: center;
-  }
-  
-  .connected-wallet-wrapper {
-    background-color: var(--primary-color);
-    color: white;
-    display: flex;
-    align-items: center;
-    /* flex-direction: column; */
-  }
-  
-  .connected-wallet-wrapper span {
-    margin-right: 10px;
-  }
-  
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.connect-wallet-wrapper {
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 2rem;
+}
+
+.connect-wallet-wrapper button {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.connect-wallet-wrapper span {
+  margin-right: 10px;
+}
+
+.connecting-wallet-wrapper {
+  background-color: purple;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.connected-wallet-wrapper {
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  /* flex-direction: column; */
+}
+
+.connected-wallet-wrapper span {
+  margin-right: 10px;
+}
