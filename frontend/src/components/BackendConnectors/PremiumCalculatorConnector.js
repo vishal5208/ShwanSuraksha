@@ -39,7 +39,7 @@ export const calcaulatePremium = async (obj) => {
         _region,
         _policyType
       );
-      console.log("data le lo : ", data.toString());
+
       if (data) {
         return {
           data: ethers.utils.formatUnits(data, sixDecimals),

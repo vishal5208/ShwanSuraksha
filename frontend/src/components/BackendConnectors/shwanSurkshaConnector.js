@@ -22,8 +22,14 @@ export const addPolicy = async (obj) => {
 
       console.log("i'm in swansurksha");
 
-      const { _breed, _ageInMonths, _healthCondition, _region, _policyType } =
-        obj;
+      const {
+        _breed,
+        _ageInMonths,
+        _healthCondition,
+        _region,
+        _policyType,
+        _ipfsHash,
+      } = obj;
 
       const startDate = new Date();
       startDate.setDate(startDate.getDate() + 1); // Set start date to 1 day after current date
@@ -38,6 +44,7 @@ export const addPolicy = async (obj) => {
         _healthCondition,
         _region,
         _policyType,
+        _ipfsHash,
         startTimestamp.toString(),
         endTimestamp.toString()
       );
@@ -45,7 +52,15 @@ export const addPolicy = async (obj) => {
       const filter = contract.filters.PolicyAdded();
       contract.on(
         filter,
-        async (policyId, owner, premium, payout, startDate, endDate) => {
+        async (
+          policyId,
+          owner,
+          premium,
+          payout,
+          startDate,
+          endDate,
+          _ipfsHash
+        ) => {
           console.log(`New policy added with ID ${policyId}`);
           const alertBox = document.createElement("div");
           alertBox.classList.add("alert-box");
