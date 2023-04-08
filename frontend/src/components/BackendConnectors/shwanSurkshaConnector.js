@@ -34,15 +34,14 @@ export const addPolicy = async (obj) => {
       const startTimestamp = Math.floor(startdate.getTime() / 1000);
       const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-      console.log(startTimestamp, endTimestamp);
       const receipt = await contract.addPolicy(
         _breed,
         _ageInMonths,
         _healthCondition,
         _region,
         _policyType,
-        startTimestamp,
-        endTimestamp
+        "1680519558234",
+        "168051955878787"
       );
 
       const filter = contract.filters.PolicyAdded();
