@@ -9,7 +9,7 @@ const data = {
   type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
   body: {
     transaction_data: {
-      contract_address: "0xfA8D51Be50F8B0F68a9dCB91ad67cA088365cFFc",
+      contract_address: "0x92C3639b93cd02cc05D45bc6D3f93c2872E0589C",
       method_id: "b68967e2",
       chain_id: 80001,
       network: "polygon-mumbai",
@@ -44,7 +44,7 @@ function ClaimButton({ policyId }) {
 
   const openInNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
-};
+  };
 
   const handleClick = async () => {
     try {
@@ -81,7 +81,11 @@ function ClaimButton({ policyId }) {
 
           <section className="blockpass-package-flex-center repu-card qrcode-container">
             <h3>Verify Your claim and get your payout</h3>
-            <QRCode level="Q" style={{ width: 256 }} value={JSON.stringify(data)} />
+            <QRCode
+              level="Q"
+              style={{ width: 256 }}
+              value={JSON.stringify(data)}
+            />
           </section>
 
           <section className="repu-card blockpass-package-flex-center button-group bottom-buttons">
@@ -90,12 +94,12 @@ function ClaimButton({ policyId }) {
               <button onClick={handleClick}>Claim Policy</button>
               {error && <p>Error: {error}</p>}
               {success && <p>Policy claimed successfully!</p>}
-</div>
-</section>
-</section>
-</main>
-</div>
-);
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  );
 }
 
 export default ClaimButton;
