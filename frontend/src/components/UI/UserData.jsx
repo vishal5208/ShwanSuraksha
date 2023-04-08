@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { Link } from "react-router-dom";
 import "../../styles/userdata.css";
 import { getPolicy } from "../BackendConnectors/shwanSurkshaConnector";
+import { claimPolicy } from "../BackendConnectors/shwanSurkshaConnector";
 
 export function PolicyButton() {
   const [policyData, setPolicyData] = useState(null);
@@ -30,6 +31,37 @@ export function PolicyButton() {
     }
   };
 
+  function PolicyClaimButton({ policyId }) {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const handleClick = async () => {
+      setIsSubmitting(true);
+      const result = await claimPolicy(policyId);
+      setIsSubmitting(false);
+
+      if (result === true) {
+        setIsSuccess(true);
+      } else {
+        setErrorMsg("Failed to claim policy. Please try again.");
+      }
+    };
+
+    return (
+      <div>
+        {isSuccess ? (
+          <div>Policy claimed successfully!</div>
+        ) : (
+          <button onClick={handleClick} disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Do you want to claim policy?"}
+          </button>
+        )}
+        {errorMsg && <div style={{ color: "red" }}>{errorMsg}</div>}
+      </div>
+    );
+  }
+
   return (
     <div className="userdata-container">
       <input
@@ -55,6 +87,7 @@ export function PolicyButton() {
           <p>Policy Type: {policyData.policyType.toString()}</p>
         </div>
       )}
+      <PolicyClaimButton policyId={policyId} />
       <Link to="/claim">
         <button className="register__btn">Claim</button>
       </Link>

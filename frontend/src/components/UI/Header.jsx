@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 
 const nav__links = [
   {
-    path: "#home",
+    path: "/",
     display: "Home",
   },
   {
-    path: "#insurance",
-    display: "Benefits",
+    path: "/form",
+    display: "Registration",
   },
   {
     path: "/PolicyButton",
-    display: "UserData",
+    display: "Claim",
   },
 ];
 

@@ -1,4 +1,4 @@
-import Hero from "./UI/Hero";
+import Hero from "./UI/Home";
 import Insurance from "./UI/Insurance";
 
 

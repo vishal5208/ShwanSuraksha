@@ -1,10 +1,10 @@
-.hero__wrapper{
+.Home__wrapper{
     display: flex;
     justify-content: space-between;
     padding-top: 50px;
 }
 
-.hero__content .section__title{
+.Home__content .section__title{
     font-size: 3rem;
     padding-right: 60px;
     line-height: 60px;
@@ -15,7 +15,7 @@
     color: var(--primary-color);
 }
 
-.hero__content p{
+.Home__content p{
     font-size: 1.1rem;
     color: var(--heading-color);
     margin-bottom: 20px;
@@ -23,7 +23,7 @@
     line-height: 30px;
 }
 
-.hero__btns{
+.Home__btns{
     display: flex;
     align-items: center;
     column-gap: 3rem;
@@ -50,7 +50,7 @@
     border: 20px solid #d3cef2;
 }
 
-.hero__img-wrapper{
+.Home__img-wrapper{
     position: relative;
     z-index: 1;
 }
