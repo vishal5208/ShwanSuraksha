@@ -25,8 +25,10 @@ export const addPolicy = async (obj) => {
       const { _breed, _ageInMonths, _healthCondition, _region, _policyType } =
         obj;
 
-      const startDate = new Date();
-      startDate.setDate(startDate.getDate() + 1); // Set start date to 1 day after current date
+      //  const startDate = new Date();
+      const startDate = new Date(Date.now() + 2 * 60 * 1000); // Set start date to 2 minutes ahead of the current time
+
+      //  startDate.setDate(startDate.getDate() + 1); // Set start date to 1 day after current date
       const endDate = new Date(startDate);
       endDate.setFullYear(startDate.getFullYear() + 1); // Set end date to 1 year after start date
       const startTimestamp = Math.floor(startDate.getTime() / 1000);
