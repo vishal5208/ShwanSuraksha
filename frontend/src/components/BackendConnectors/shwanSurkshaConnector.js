@@ -34,14 +34,15 @@ export const addPolicy = async (obj) => {
       const startTimestamp = Math.floor(startdate.getTime() / 1000);
       const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
+      console.log(startTimestamp, endTimestamp);
       const receipt = await contract.addPolicy(
         _breed,
         _ageInMonths,
         _healthCondition,
         _region,
         _policyType,
-        "1680519558234",
-        "168051955878787"
+        startTimestamp,
+        endTimestamp
       );
 
       const filter = contract.filters.PolicyAdded();
@@ -132,8 +133,8 @@ export const getPolicy = async (policyId) => {
     return {
       success: false,
       msg: error.message,
-    };
-  }
+    };
+  }
 };
 
 export const claimPolicy = async (policyId) => {
@@ -163,6 +164,6 @@ export const claimPolicy = async (policyId) => {
     return {
       success: false,
       msg: error.message,
-    };
-  }
+    };
+  }
 };

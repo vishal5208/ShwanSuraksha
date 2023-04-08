@@ -15,18 +15,35 @@ contract SwhanSurkshaClaimVerifier is ZKPVerifier {
     IShwanSurksha public shwanSurksha;
     mapping(uint256 => address) public idToAddress;
     mapping(address => uint256) public addressToId;
+    bool private paused;
 
-    event proofSubmitedSuccesfully(address policyHolder, bytes32 policyId);
+    event ClaimFailed(address policyHolder, bytes32 policyId);
 
     constructor(address _shwanSurkshaAddr) {
         shwanSurksha = IShwanSurksha(_shwanSurkshaAddr);
+    }
+
+    modifier whenNotPaused() {
+        require(
+            !paused,
+            "Verifier contract is paused and processing another claim, Please wait for sometime"
+        );
+        _;
+    }
+
+    modifier whenPaused() {
+        require(
+            paused,
+            "Verifier contract is paused and processing another claim, Please wait for sometime"
+        );
+        _;
     }
 
     function _beforeProofSubmit(
         uint64 /* requestId */,
         uint256[] memory inputs,
         ICircuitValidator validator
-    ) internal view override {
+    ) internal override whenNotPaused {
         // check that challenge input of the proof is equal to the msg.sender
         address addr = GenesisUtils.int256ToAddress(
             inputs[validator.getChallengeInputIndex()]
@@ -35,13 +52,14 @@ contract SwhanSurkshaClaimVerifier is ZKPVerifier {
             _msgSender() == addr,
             "address in proof is not a sender address"
         );
+        paused = true;
     }
 
     function _afterProofSubmit(
         uint64 requestId,
         uint256[] memory inputs,
         ICircuitValidator validator
-    ) internal override {
+    ) internal override whenPaused {
         require(
             requestId == TRANSFER_REQUEST_ID && addressToId[_msgSender()] == 0,
             "proof can not be submitted more than once"
@@ -52,9 +70,16 @@ contract SwhanSurkshaClaimVerifier is ZKPVerifier {
         if (idToAddress[id] == address(0)) {
             addressToId[_msgSender()] = id;
             idToAddress[id] = _msgSender();
-            bytes32 policyId = shwanSurksha.getActivePoliciyOf(_msgSender());
+            bytes32 policyId = shwanSurksha.getPolicyToBeClaimed(_msgSender());
             shwanSurksha.setIsClaimable(_msgSender(), policyId);
-            emit proofSubmitedSuccesfully(_msgSender(), policyId);
+
+            // now cliaim the function
+            bool success = shwanSurksha.fulfilThePolicyClaim(policyId);
+            if (!success) {
+                emit ClaimFailed(_msgSender(), policyId);
+            }
         }
+
+        paused = false;
     }
 }

@@ -5,6 +5,8 @@ pragma solidity 0.8.4;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./interfaces/IPremimumCalculator.sol";
 
+
+
 contract ShwanSurksha {
     // Struct to represent a policy
     struct Policy {
@@ -19,12 +21,14 @@ contract ShwanSurksha {
         string healthCondition;
         string region;
         string policyType;
+        string ipfsHash;
     }
 
     // Mapping to store policies by their unique ID
     mapping(bytes32 => Policy) policy;
     mapping(address => bytes32[]) public policyHolderToIDs;
     mapping(address => mapping(bytes32 => bool)) private isClaimable;
+    mapping(address => bytes32) private policyHolderToClaimId;
 
     // Events to emit when policies are added and claimed
     event PolicyAdded(
@@ -35,9 +39,17 @@ contract ShwanSurksha {
         uint256 startDate,
         uint256 endDate
     );
-    event PolicyClaimed(bytes32 policyId, address owner, uint256 payout);
-    event PolicyUpdated(bytes32 policyId, address owner, uint256 newEndDate);
-    event policyCancelled(bytes32 policyId);
+    event PolicyClaimed(
+        bytes32 indexed policyId,
+        address owner,
+        uint256 payout
+    );
+    event PolicyUpdated(
+        bytes32 indexed policyId,
+        address owner,
+        uint256 newEndDate
+    );
+    event policyCancelled(bytes32 indexed policyId, address owner);
 
     IERC20 usdc;
     IPremimumCalculator premimumCalculator;
@@ -54,6 +66,14 @@ contract ShwanSurksha {
         _;
     }
 
+    modifier OnlyVerifier(address caller) {
+        require(
+            caller == verifier,
+            "Caller must be polygonId verifier contract"
+        );
+        _;
+    }
+
     function updateContractsAddress(
         address _usdcTokenAddress,
         address _premimumCalculator,
@@ -65,8 +85,10 @@ contract ShwanSurksha {
     }
 
     // set isClaimable true by verifier(polygonID)
-    function setIsClaimable(address policyHolder, bytes32 policyId) public {
-        require(msg.sender == verifier);
+    function setIsClaimable(
+        address policyHolder,
+        bytes32 policyId
+    ) external OnlyVerifier(msg.sender) {
         isClaimable[policyHolder][policyId] = true;
     }
 
@@ -77,9 +99,10 @@ contract ShwanSurksha {
         string memory _healthCondition,
         string memory _region,
         string memory _policyType,
+        string memory _ipfsHash,
         uint256 startDate,
         uint256 endDate
-    ) public {
+    ) external {
         bytes32 policyId = keccak256(
             abi.encodePacked(
                 msg.sender,
@@ -88,7 +111,8 @@ contract ShwanSurksha {
                 _ageInMonths,
                 _healthCondition,
                 _region,
-                _policyType
+                _policyType,
+                _ipfsHash
             )
         );
 
@@ -124,7 +148,8 @@ contract ShwanSurksha {
             _ageInMonths,
             _healthCondition,
             _region,
-            _policyType
+            _policyType,
+            _ipfsHash
         );
 
         policyHolderToIDs[msg.sender].push(policyId);
@@ -139,9 +164,12 @@ contract ShwanSurksha {
         );
     }
 
-    function claimPolicy(bytes32 policyId) public {
+    function fulfilThePolicyClaim(
+        bytes32 policyId
+    ) external OnlyVerifier(msg.sender) returns (bool) {
         Policy storage _policy = policy[policyId];
 
+        // used polygonId here
         require(isClaimable[_policy.owner][policyId], "Verify claim first");
 
         // Check that the policy exists and is not already claimed
@@ -161,17 +189,27 @@ contract ShwanSurksha {
         _policy.claimed = true;
 
         // Pay out the policy amount to the policy owner
-        require(
-            usdc.transfer(_policy.owner, _policy.payout),
-            "USDC transfer failed"
-        );
 
-        isClaimable[_policy.owner][policyId] = false;
-        emit PolicyClaimed(policyId, _policy.owner, _policy.payout);
+        bool isDone = usdc.transfer(_policy.owner, _policy.payout);
+
+        // so that claim can't be done twice
+
+        if (isDone) {
+            isClaimable[_policy.owner][policyId] = false;
+            emit PolicyClaimed(policyId, _policy.owner, _policy.payout);
+            return true;
+        }
+
+        return false;
+    }
+
+    // first set which policy you want to claim
+    function claimPolicy(bytes32 policyId) external {
+        policyHolderToClaimId[msg.sender] = policyId;
     }
 
     // cancelPolicy
-    function cancelPolicy(bytes32 policyId) public {
+    function cancelPolicy(bytes32 policyId) external {
         Policy storage _policy = policy[policyId];
 
         // Check that the policy exists and is not already claimed
@@ -195,7 +233,7 @@ contract ShwanSurksha {
         delete policy[policyId];
         removePolicy(_policy.owner, policyId);
 
-        emit policyCancelled(policyId);
+        emit policyCancelled(policyId, _policy.owner);
     }
 
     function removePolicy(address policyHolder, bytes32 policyId) internal {
@@ -248,7 +286,8 @@ contract ShwanSurksha {
             uint ageInMonths,
             string memory healthCondition,
             string memory region,
-            string memory policyType
+            string memory policyType,
+            string memory ipfsHash
         )
     {
         Policy storage _policy = policy[policyId];
@@ -264,7 +303,8 @@ contract ShwanSurksha {
             _policy.ageInMonths,
             _policy.healthCondition,
             _policy.region,
-            _policy.policyType
+            _policy.policyType,
+            _policy.ipfsHash
         );
     }
 
@@ -277,18 +317,15 @@ contract ShwanSurksha {
 
     function getActivePoliciyOf(
         address policyHolder
+    ) external view returns (bytes32[] memory) {
+        require(policyHolder != address(0), "Invalid policyHolder address");
+        return policyHolderToIDs[policyHolder];
+    }
+
+    function getPolicyToBeClaimed(
+        address policyHolder
     ) external view returns (bytes32) {
         require(policyHolder != address(0), "Invalid policyHolder address");
-        bytes32[] memory policies = policyHolderToIDs[policyHolder];
-        bytes32 policyId;
-        for (uint i = 0; i < policies.length; i++) {
-            Policy memory _policy = policy[policies[i]];
-            if (!_policy.claimed && !isClaimable[policyHolder][policies[i]]) {
-                policyId = policies[i];
-                break;
-            }
-        }
-
-        return policyId;
+        return policyHolderToClaimId[policyHolder];
     }
 }
