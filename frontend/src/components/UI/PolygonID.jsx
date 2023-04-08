@@ -9,7 +9,7 @@ const data = {
   type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
   body: {
     transaction_data: {
-      contract_address: "0x92C3639b93cd02cc05D45bc6D3f93c2872E0589C",
+      contract_address: "0x3BcfFC7957aEb49d7743adCd7dD977B63bbc4a0d",
       method_id: "b68967e2",
       chain_id: 80001,
       network: "polygon-mumbai",

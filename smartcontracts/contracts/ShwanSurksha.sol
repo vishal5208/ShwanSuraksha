@@ -5,8 +5,6 @@ pragma solidity 0.8.4;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./interfaces/IPremimumCalculator.sol";
 
-
-
 contract ShwanSurksha {
     // Struct to represent a policy
     struct Policy {
@@ -173,10 +171,7 @@ contract ShwanSurksha {
         require(isClaimable[_policy.owner][policyId], "Verify claim first");
 
         // Check that the policy exists and is not already claimed
-        require(
-            _policy.owner != address(0) && _policy.owner == msg.sender,
-            "Policy does not exist"
-        );
+
         require(!_policy.claimed, "Policy has already been claimed");
 
         // Check that the policy end date has passed
