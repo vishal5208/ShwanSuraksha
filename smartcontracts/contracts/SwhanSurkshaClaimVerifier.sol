@@ -13,8 +13,8 @@ contract SwhanSurkshaClaimVerifier is ZKPVerifier {
     uint64 public constant TRANSFER_REQUEST_ID = 1;
 
     IShwanSurksha public shwanSurksha;
-    mapping(uint256 => address) public idToAddress;
-    mapping(address => uint256) public addressToId;
+    mapping(bytes32 => bool) isClaimed;
+
     bool private paused;
 
     event ClaimFailed(address policyHolder, bytes32 policyId);
@@ -56,27 +56,19 @@ contract SwhanSurkshaClaimVerifier is ZKPVerifier {
     }
 
     function _afterProofSubmit(
-        uint64 requestId,
-        uint256[] memory inputs,
-        ICircuitValidator validator
+        uint64 /* requestId */,
+        uint256[] memory /* inputs*/,
+        ICircuitValidator /* validator */
     ) internal override whenPaused {
-        require(
-            requestId == TRANSFER_REQUEST_ID && addressToId[_msgSender()] == 0,
-            "proof can not be submitted more than once"
-        );
-
-        uint256 id = inputs[validator.getChallengeInputIndex()];
-        // execute the airdrop
-        if (idToAddress[id] == address(0)) {
-            addressToId[_msgSender()] = id;
-            idToAddress[id] = _msgSender();
-            bytes32 policyId = shwanSurksha.getPolicyToBeClaimed(_msgSender());
+        bytes32 policyId = shwanSurksha.getPolicyToBeClaimed(_msgSender());
+        if (!isClaimed[policyId]) {
             shwanSurksha.setIsClaimable(_msgSender(), policyId);
-
             // now cliaim the function
             bool success = shwanSurksha.fulfilThePolicyClaim(policyId);
             if (!success) {
                 emit ClaimFailed(_msgSender(), policyId);
+            } else {
+                isClaimed[policyId] = true;
             }
         }
 

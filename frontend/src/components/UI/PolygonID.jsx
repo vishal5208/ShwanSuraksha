@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../styles/polygonid.css";
 import { QRCode } from "react-qr-svg";
 import { claimPolicy } from "../BackendConnectors/shwanSurkshaConnector";
+import { PolicyClaimedListener } from "../Hooks/PolicyClaimedListener";
 
 const data = {
   id: "c811849d-6bfb-4d85-936e-3d9759c7f105",
@@ -9,7 +10,7 @@ const data = {
   type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
   body: {
     transaction_data: {
-      contract_address: "0x52CB6A52acF7260c0E65E238339D611626761820",
+      contract_address: "0x449aF2d309ecc01Bf1827CabD77cE3Bfd994EF2c",
       method_id: "b68967e2",
       chain_id: 80001,
       network: "polygon-mumbai",
@@ -101,6 +102,8 @@ function ClaimButton({ policyId }) {
               value={JSON.stringify(data)}
             />
           </section>
+
+          <PolicyClaimedListener />
 
           {/* <section
             className="repu-card blockpass-package-flex-center button-group bottom-buttons"
