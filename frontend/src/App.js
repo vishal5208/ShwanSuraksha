@@ -21,8 +21,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/Form" element={<InsuranceForm></InsuranceForm>}></Route>
-          <Route path="/PolicyButton" element={<PolicyButton />} />
+          <Route path="/Registration" element={<InsuranceForm></InsuranceForm>}></Route>
+          <Route path="/Policy" element={<PolicyButton />} />
           <Route path="/claim" element={<PolygonID></PolygonID>}></Route>
         </Routes>
         <PolicyClaimedListener /> <Footer />

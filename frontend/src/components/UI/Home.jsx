@@ -31,7 +31,7 @@ const Home = () => {
               data-aos-delay="200"
               data-aos-duration="2000"
             >
-              <Link to="/form">
+              <Link to="/Registration">
                 <button className="register__btn">Get started</button>
               </Link>
             </div>

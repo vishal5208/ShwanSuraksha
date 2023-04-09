@@ -9,11 +9,11 @@ const nav__links = [
     display: "Home",
   },
   {
-    path: "/form",
+    path: "/Registration",
     display: "Registration",
   },
   {
-    path: "/PolicyButton",
+    path: "/Policy",
     display: "Claim",
   },
 ];
