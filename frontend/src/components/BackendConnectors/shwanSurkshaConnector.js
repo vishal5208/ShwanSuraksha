@@ -162,3 +162,41 @@ export const claimPolicy = async (policyId) => {
     return false;
   }
 };
+
+export const cancelPolicy = async (policyId) => {
+  try {
+    if (typeof window.ethereum !== "undefined") {
+      await requestAccount();
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        shwanSurkshaAddress,
+        shwanSurksha.abi,
+        signer
+      );
+
+      const receipt = await contract.cancelPolicy(policyId);
+
+      const filter = contract.filters.PolicyCancelled();
+      contract.on(filter, (policyId, owner) => {
+        console.log(`Policy cancelled with ID ${policyId}`);
+        const alertBox = document.createElement("div");
+        alertBox.classList.add("alert-box");
+        alertBox.textContent = `Policy Cancelled Successfully with policy ID ${policyId}`;
+        document.body.appendChild(alertBox);
+        setTimeout(() => alertBox.remove(), 5000);
+        return policyId;
+      });
+    } else {
+      return {
+        success: false,
+        msg: "Please connect your wallet!",
+      };
+    }
+  } catch (error) {
+    return {
+      success: false,
+      msg: error.message,
+    };
+  }
+};
