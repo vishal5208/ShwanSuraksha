@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../../styles/polygonid.css";
 import { QRCode } from "react-qr-svg";
 import { claimPolicy } from "../BackendConnectors/shwanSurkshaConnector";
-import { PolicyClaimedListener } from "../Hooks/PolicyClaimedListener";
 
 const data = {
   id: "c811849d-6bfb-4d85-936e-3d9759c7f105",
@@ -95,15 +94,13 @@ function ClaimButton({ policyId }) {
               background: "#C1B4F3",
             }}
           >
-            <h3>Verify Your claim and get your payout</h3>
+            <h3>Verify the claim and get your payout</h3>
             <QRCode
               level="Q"
               style={{ width: 256 }}
               value={JSON.stringify(data)}
             />
           </section>
-
-          <PolicyClaimedListener />
 
           {/* <section
             className="repu-card blockpass-package-flex-center button-group bottom-buttons"
