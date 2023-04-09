@@ -9,6 +9,7 @@ import { InsuranceForm } from "../src/components/UI/InsuranceForm";
 import { PolicyButton } from "../src/components/UI/UserData";
 import PolygonID from "./components/UI/PolygonID";
 import { PolicyClaimedListener } from "./components/Hooks/PolicyClaimedListener";
+import {About} from "./components/UI/About";
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/Registration" element={<InsuranceForm></InsuranceForm>}></Route>
           <Route path="/Policy" element={<PolicyButton />} />
           <Route path="/claim" element={<PolygonID></PolygonID>}></Route>
+          <Route path="/about" element={<About></About>}></Route>
         </Routes>
         <PolicyClaimedListener /> <Footer />
       </BrowserRouter>

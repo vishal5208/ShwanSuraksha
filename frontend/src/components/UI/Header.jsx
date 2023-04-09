@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import "../../styles/header.css";
 import { WalletComponent } from "../UI/walletComponent";
 import { Link } from "react-router-dom";
-
 const nav__links = [
   {
     path: "/",
@@ -15,6 +14,10 @@ const nav__links = [
   {
     path: "/Policy",
     display: "Claim",
+  },
+  {
+    path: "/about",
+    display: "About",
   },
 ];
 
@@ -37,18 +40,6 @@ const Header = () => {
 
     return () => window.removeEventListener("scroll", headerFunc);
   }, []);
-
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-
-  //   const targetAttr = e.target.getAttribute("href");
-  //   const location = document.querySelector(targetAttr).offsetTop;
-
-  //   window.scrollTo({
-  //     left: 0,
-  //     top: location - 80,
-  //   });
-  // };
 
   return (
     <header className="header" ref={headerRef}>

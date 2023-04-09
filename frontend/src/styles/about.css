@@ -1,0 +1,46 @@
+  .about-container {
+    max-width: 800px;
+    margin: 20px auto 0; 
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+  }
+  
+  .description {
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  
+  .description p {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  .dogs-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
+  
+  .dog-image {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  cursor: pointer;
+  }
+  
+  .dog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+ 
+   
+
+   
