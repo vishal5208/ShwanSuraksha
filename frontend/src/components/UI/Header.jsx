@@ -48,6 +48,8 @@ const Header = () => {
           <div className="logo">
             <h2>ShwanSuraksha</h2>
           </div>
+
+          {/* navigation for desktop */}
           <div className="navigation">
             <ul className="menu">
               {nav__links.map((item) => (
@@ -57,7 +59,20 @@ const Header = () => {
               ))}
             </ul>
           </div>
-          <div>
+
+          {/* navigation for mobile */}
+
+          <div className="navigation-mobile">
+            <ul className="menu">
+              {nav__links.map((item) => (
+                <li className="nav__item">
+                  <Link to={item.path}>{item.display}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="wallet-for-mobile">
             <WalletComponent />
           </div>
         </div>
