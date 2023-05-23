@@ -42,7 +42,7 @@
 }
 
 .insurance__icon img {
-  width: 150%;
+  width: 100%;
 }
 
 .insurance__content {
@@ -63,9 +63,21 @@
 
 @media (max-width: 450px) {
   .insurance__top p {
-    color: var(--heading-color);
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 28px;
     padding-left: 25px;
+  }
+
+  .insurance__wrapper {
+    flex-direction: column;
+    width: 100%;
+    padding: 27px;
+    margin: 2px;
+    gap: 8px;
+  }
+
+  .insurance__item {
+    column-gap: 1.6rem;
+    width: 100%;
   }
 }
